@@ -10,6 +10,7 @@ import (
 	"fmt"
 	"math"
 	"reflect"
+	"regexp"
 	"sort"
 	"time"
 
@@ -144,7 +145,7 @@ func main() {
 	// var toUpper = strings.ToUpper("sukmarizki")
 	// fmt.Println(toSPlit)
 	// fmt.Println(toUpper)
-	// fmt.Println(endString)
+	// fmt.Println(endString)c
 	// flag.Parse()
 	// fmt.Println(*hostApplication,*usernameHos,*password)
 
@@ -205,11 +206,44 @@ func main() {
 	fmt.Println(sampleType.Field(0).Name)
 	fmt.Println(sampleType.Field(0).Tag.Get("required"))
 	fmt.Println(sampleType.Field(0).Tag.Get("max"))
+	fmt.Println(sampleType.Field(0).Tag.Get("name"))
 	//Kode Programm StructTag
+
+	fmt.Println(IsValid(sample))
+
+	//Package regexp
+	/*
+		Tiap Bahasa pemograman memiliki fitur regexp atau biasa disebut juga regular expression
+		Package regexp adalah utilitas digolang untuk melakukan pencarian regular expression
+		Regulaar expression di Golang menggunakan library C yang dibuat GOOGLE bernama RE2
+
+	*/
+
+	var regexp *regexp.Regexp = regexp.MustCompile("s([a-z])a")
+	fmt.Println(regexp.MatchString("sukma"))
+	fmt.Println(regexp.MatchString("SUKMA"))
+	fmt.Println(regexp.MatchString("sanna"))
+
+	search := regexp.FindAllString("sukma eka sani saka", -1)
+	fmt.Println(search)
+
+}
+func IsValid(data interface{}) bool {
+	t := reflect.TypeOf(data)
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+		if field.Tag.Get("required") == "true" {
+			value := reflect.ValueOf(data).Field(i).Interface()
+			if value == "" {
+				return false
+			}
+		}
+	}
+	return true
 }
 
 type sample struct {
-	Name string `required:"true" max:"1000"`
+	Name string `required:"true" max:"1000" name:"Sukma Rizki"`
 }
 
 // data.HelloMyName("Sukma")
