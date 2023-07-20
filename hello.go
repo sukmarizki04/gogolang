@@ -145,12 +145,6 @@ func main() {
 	// fmt.Println(toSPlit)
 	// fmt.Println(toUpper)
 	// fmt.Println(endString)
-
-	// //Program Package Flag
-	// hostApplication := flag.String("host", "localhost", "Masukkan database Hos")
-	// usernameHos := flag.String("username", "root", "put your database username")
-	// password := flag.String("password", "root","Put your database password")
-
 	// flag.Parse()
 	// fmt.Println(*hostApplication,*usernameHos,*password)
 
